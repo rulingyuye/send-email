@@ -9,19 +9,20 @@ import os
 
 def send_email(toaddrs,subject,content,file_name=None,file_dir=None):
 	'''
-	自动发邮件，需要传入几个参数
+	自动发邮件，需要传入几个参数，并且可以选择传入文件夹或者传入单个文件
 	'''
 	fromaddr = "fromaddr" #自己的邮箱
 	smtpaddr = "smtp.exmail.qq.com"
 	toaddrs = toaddrs #发送给哪些人，传入list
-	subject = subject
+	subject = subject #传入的标题
+	content = content #邮件正文
 	password = "password" #邮箱密码
 
 	mail_msg = MIMEMultipart()
-	mail_msg['Subject'] = subject #传入的标题
+	mail_msg['Subject'] = subject 
 	mail_msg['From'] = fromaddr
 	mail_msg['To'] = ','.join(toaddrs)
-	mail_msg.attach(MIMEText(content, 'plain', 'utf-8')) #邮件正文
+	mail_msg.attach(MIMEText(content, 'plain', 'utf-8')) 
 	if file_dir == None:
 		part = MIMEApplication(open(file_name,'rb').read(),'utf-8')
 		part.add_header('Content-Disposition', 'attachment', filename=('gbk','',os.path.split(file_name)[-1]))
